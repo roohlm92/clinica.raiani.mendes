@@ -30,4 +30,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/procedures/{procedure}/edit', 'ProcedureController@edit')->name('procedures.edit');
     Route::put('/procedures/{procedure}', 'ProcedureController@update')->name('procedures.update');
     Route::delete('/procedures/{procedure}', 'ProcedureController@destroy')->name('procedures.destroy');
+    
 });
