@@ -40,4 +40,10 @@ class Appointment extends Model
     {
         return $this->belongsTo(User::class, 'doctor_id');
     }
+
+    public function procedure()
+    {
+        return $this->belongsTo(Procedure::class);
+    }
+
 }

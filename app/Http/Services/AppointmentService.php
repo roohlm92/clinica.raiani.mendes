@@ -225,42 +225,37 @@ class AppointmentService
             ]);
     }
 
-    public function store(string $startDate, int $doctorId, ?int $patientId, ?float $value, ?string $procedureType)
-{
-    try {
-        $user = auth()->user();
+    public function store(string $startDate, int $doctorId, ?int $patientId)
+    {
+        try {
+            $user = auth()->user();
 
-        $endDate = Carbon::parse($startDate)->addHours(1)->toDateTimeString();
-        $startDate = Carbon::parse($startDate)->toDateTimeString();
+            $endDate = Carbon::parse($startDate)->addHours(1)->toDateTimeString();
+            $startDate = Carbon::parse($startDate)->toDateTimeString();
 
-        $storeParams = new StoreServiceParams(
-            $patientId ?? $user->id,
-            $doctorId,
-            $startDate,
-            $endDate,
-            [
-                'value' => $value,
-                'procedure_type' => $procedureType,
-            ]
-        );
+            $storeParams = new StoreServiceParams(
+                $patientId ?? $user->id,
+                $doctorId,
+                $startDate,
+                $endDate
+            );
 
-        $appointment = $this->appointmentModel->create($storeParams->toArray());
-    } catch (\Throwable $th) {
+            $appointment = $this->appointmentModel->create($storeParams->toArray());
+        } catch (\Throwable $th) {
+            return new ServiceResponse(
+                false,
+                'Erro ao criar agendamento',
+                null,
+                $th
+            );
+        }
+
         return new ServiceResponse(
-            false,
-            'Erro ao criar agendamento',
-            null,
-            $th
+            true,
+            'Agendamento criado com sucesso',
+            $appointment
         );
     }
-
-    return new ServiceResponse(
-        true,
-        'Agendamento criado com sucesso',
-        $appointment
-    );
-}
-
 
     public function cancel(int $appointmentId)
     {

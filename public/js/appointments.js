@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenDays: [0, 6],
         businessHours: [
             {
-                daysOfWeek: [ 0, 1, 2, 3, 4, 5, 6 ],
+                daysOfWeek: [ 1, 2, 3, 4, 5 ],
                 startTime: '08:00',
                 endTime: '13:00'
             },
             {
-                daysOfWeek: [ 0, 1, 2, 3, 4, 5, 6 ],
+                daysOfWeek: [ 1, 2, 3, 4, 5 ],
                 startTime: '14:00',
                 endTime: '19:00'
             }
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             html += '</div>';
 
             Swal.fire({
-                title: `Profissionais disponíveis:`,
+                title: `Médicos disponíveis:`,
                 html: html,
                 width: '80%',
                 showConfirmButton: false,

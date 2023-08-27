@@ -14,30 +14,16 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenDays: [0, 6],
         businessHours: [
             {
-                daysOfWeek: [ 0, 1, 2, 3, 4, 5, 6 ],
+                daysOfWeek: [ 1, 2, 3, 4, 5 ],
                 startTime: '08:00',
                 endTime: '13:00'
             },
             {
-                daysOfWeek: [ 0, 1, 2, 3, 4, 5, 6 ],
+                daysOfWeek: [ 1, 2, 3, 4, 5 ],
                 startTime: '14:00',
                 endTime: '19:00'
             }
         ],
-
-        //dateClick: async function(info) {
-    //if (info.date.getHours() === 13 || blockedTimes.includes(info.dateStr)) {
-        //Swal.fire({
-           // icon: 'error',
-           // title: 'Horário Indisponível',
-           // text: 'Desculpe, este horário não está disponível para agendamento.',
-        //});
-       // return;
-    //}
-
-    // Restante do seu código para carregar os profissionais disponíveis
-//}
-
         dateClick: async function(info) {
             if (info.date.getHours() === 13) return;
             const apiUrl = `/doctors/available?date=${info.dateStr}`;
@@ -66,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             html += '</div>';
 
             Swal.fire({
-                title: `Profissional:`,
+                title: `Médicos disponíveis:`,
                 html: html,
                 width: '80%',
                 showConfirmButton: false,
@@ -153,5 +139,3 @@ function setAppointment(date, doctorId, doctorName, patientId, patientName) {
         }
     });
 }
-
-;

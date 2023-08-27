@@ -12,9 +12,9 @@ class Procedure extends Model
     // Define os campos que podem ser preenchidos em massa
     protected $fillable = [
         'name',
-        'description',
-        'price',
+        'value', // Adicione o campo 'value' aqui
     ];
+    
 
     // Relacionamento Eloquent com outras tabelas, por exemplo, um relacionamento com médicos
     public function doctors()

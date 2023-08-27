@@ -27,23 +27,31 @@ public function create()
 }
 
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'value' => 'required|numeric',
-        ]);
-    
-        Procedure::create($validatedData);
-    
-        return redirect()->route('procedures.index')->with('success', 'Procedimento criado com sucesso.');
-    }
-    
+public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'value' => 'required|numeric',
+    ]);
+
+    // Defina um valor padrão explicitamente como 0.00 caso o campo value esteja vazio
+    $validatedData['value'] = $validatedData['value'] ?? 0.00;
+
+    Procedure::create($validatedData);
+
+    return redirect()->route('procedures.index')->with('success', 'Procedimento criado com sucesso.');
+}
+
+
 
     public function edit(Procedure $procedure)
-    {
-        return view('procedures.edit', compact('procedure'));
-    }
+{
+    // Obtém o usuário autenticado (se você estiver usando autenticação)
+    $user = auth()->user();
+
+    return view('procedures.edit', compact('procedure', 'user'));
+}
+
 
     public function update(Request $request, Procedure $procedure)
     {
@@ -51,6 +59,7 @@ public function create()
             'name' => 'required|string|max:255',
             'value' => 'required|numeric',
         ]);
+        
     
         $procedure->update($validatedData);
     

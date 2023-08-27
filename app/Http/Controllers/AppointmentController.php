@@ -83,29 +83,14 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'date' => 'required',
-            'doctor' => 'required',
-            'patient' => 'required',
-            'value' => 'nullable|numeric',
-            'procedure_type' => 'nullable|string',
-        ]);
-    
-        $storeResponse = $this->appointmentService->store(
-            $request->date,
-            $request->doctor,
-            $request->patient,
-            $request->value,
-            $request->procedure_type
-        );
-    
-        if (!$storeResponse->success) {
+        $storeReponse = $this->appointmentService->store($request->date, $request->doctor, $request->patient);
+
+        if (!$storeReponse->success) {
             return redirect()->back()->withError('Erro ao agendar consulta');
         }
-    
+
         return redirect()->back()->withSuccess('Consulta agendada!');
     }
-    
 
     /**
      * Display the specified resource.
